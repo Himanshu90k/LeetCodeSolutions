@@ -17,6 +17,8 @@ Output: [0]
 
 */
 
+#include <iostream>
+
 struct ListNode{
 
     int val;
@@ -50,9 +52,49 @@ ListNode* MergeTwoLists(ListNode* list1, ListNode* list2) {
     return head->next;
 };
 
+void AddListValues( ListNode* &head, int value ) {
+
+    ListNode* node = new ListNode(value);
+    if ( head == nullptr ) {
+        head = node;
+    } else {
+        ListNode* curr = head;
+        while ( curr->next != nullptr ) {
+            curr = curr->next;
+        }
+        curr->next = node;
+    }
+};
+
+ListNode* CreateLinkedList(int *list, int length) {
+
+    ListNode* head = nullptr;
+    for(int i = 0; i < length; i++) {
+        AddListValues(head, list[i]);
+    }
+
+    return head;
+}
+
+void PrintLinkedList(ListNode* head) {
+    ListNode* temp = head;
+    while ( temp != nullptr ) {
+        std::cout << temp->val <<" ";
+        temp = temp->next;
+    }
+}
+
 int main() {
 
-    
+    int list1[] = {1, 2, 4};
+    int list2[] = {1, 3, 4};
+
+    ListNode* LinkedList1 =  CreateLinkedList(list1, (sizeof(list1)/sizeof(list1[0])));
+    ListNode* LinkedList2 =  CreateLinkedList(list2, (sizeof(list2)/sizeof(list2[0])));
+
+    ListNode* h1 = MergeTwoLists(LinkedList1, LinkedList2);
+
+    PrintLinkedList(LinkedList2);
 
     return 0;
 };
